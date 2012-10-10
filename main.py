@@ -20,11 +20,11 @@ def main():
     screen = pygame.display.set_mode((800,600))
 
     player = Ball(screen)
-
-    groundlvl = 500
     movespeed = 3
 
     clock = pygame.time.Clock()
+
+    groundlvl = player.miny
 
     while(True):
         # Limit the framerate
@@ -45,23 +45,14 @@ def main():
                 elif e.key == K_LEFT:
                     player.speed.x += movespeed
 
-        player.translate(player.speed)
-
-        # Gravity
-        player.speed.y += 0.5
-
-        # Hitting the ground
-        if player.lower() >= groundlvl:
-            player.position.y = groundlvl-player.radius
-            player.speed.y = -10
-
         # Drawing
         screen.fill((0,0,0))
         pygame.draw.line(screen,(255,255,255)
                         ,(0,groundlvl)
                         ,(800,groundlvl)
                         ,3)
-        player.draw()
+        #player.draw()
+        player.update()
         pygame.display.flip()
 
 if __name__ == "__main__":

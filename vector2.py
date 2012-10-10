@@ -18,12 +18,15 @@ class Vector2:
     def __mul__(self,x):
         return Vector2(self.x*x,self.y*x)
 
+    def __div__(self,x):
+        return Vector2(self.x/x,self.y/x)
+
     # Basic vector operations
-    def sqrtMagnitude(self):
+    def sqrdMagnitude(self):
         return self.x * self.x + self.y * self.y
 
     def magnitude(self):
-        return math.sqrt(self.sqrtMagnitude())
+        return math.sqrt(self.sqrdMagnitude())
 
     def normalized(self):
         return Vector2(self.x / self.magnitude(),self.y / self.magnitude())
@@ -33,6 +36,10 @@ class Vector2:
 
     def max(a,b):
         return Vector2(max(a.x,b.x),max(a.y,b.y))
+
+    def dot(a,b):
+        return (a.x*b.x)+(a.y*b.y)
+
 
     # Utility functions
     def distance(a,b):
