@@ -6,6 +6,7 @@
 
 import pygame
 from pygame.locals import *
+from obstacles import Box
 
 import sys
 
@@ -21,6 +22,8 @@ def main():
 
     player = Ball(screen)
     movespeed = 3
+
+    testBox = Box(screen)
 
     clock = pygame.time.Clock()
 
@@ -51,7 +54,7 @@ def main():
                         ,(0,groundlvl)
                         ,(800,groundlvl)
                         ,3)
-        #player.draw()
+        testBox.update()
         player.update()
         pygame.display.flip()
 
