@@ -1,8 +1,4 @@
 #!/usr/bin/env python
-# Plans:
-# Read levels from bitmap
-# Create proper classes, like a gameobject
-# Do something smarter with input.
 
 import pygame
 from pygame.locals import *
