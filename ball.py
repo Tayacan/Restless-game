@@ -29,6 +29,7 @@ class Ball(GameObject):
 
     def update(self):
         self.translate(self.speed)
+        self.collider.center = self.position
         self.speed.y += 0.5
 
         if self.lower() >= self.miny:
