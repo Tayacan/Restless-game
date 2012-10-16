@@ -46,7 +46,7 @@ class Vector2:
         return (a-b).magnitude()
 
     def clampMagnitude(self,m):
-        return self.normalized * m
+        return self.normalized() * m
 
     def lerp(fromv,tov,t):
         return Vector2(fromv.x + (tov.x-fromv.x)*t

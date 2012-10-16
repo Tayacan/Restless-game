@@ -44,13 +44,8 @@ def main():
                 elif e.key == K_LEFT:
                     player.speed.x += movespeed
 
-        # Collision test
-        topEdge = (Vector2(testBox.position.x-testBox.width/2
-                          ,testBox.position.y-testBox.height)
-                  ,Vector2(testBox.position.x+testBox.width/2
-                          ,testBox.position.y-testBox.height))
-
-        print player.collider.lineIntersects(topEdge[0],topEdge[1])[1]
+        # Test new collision stuff
+        print player.collider.collision(testBox.collider)
 
         # Drawing
         screen.fill((0,0,0))
