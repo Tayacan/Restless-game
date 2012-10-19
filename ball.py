@@ -4,8 +4,12 @@ from gameobject import GameObject
 from collider import *
 
 class Ball(GameObject):
+    """The ball that the player controls."""
     def __init__(self,screen):
+        # Start out as a basic GameObject, then modify
         GameObject.__init__(self)
+
+        # Starting position and speed
         self.position = Vector2(400,300)
         self.speed = Vector2(0,1)
 
@@ -15,11 +19,15 @@ class Ball(GameObject):
         self.radius = 15
         self.lineWidth = 3
 
+        # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
 
+        # Ground level
+        # TODO: Replace with proper collision checking
         self.miny = 500
 
     def draw(self):
+        """Draw the player"""
         pygame.draw.circle(self.screen
                           ,self.color
                           ,(int(self.position.x)
@@ -28,6 +36,8 @@ class Ball(GameObject):
                           ,self.lineWidth)
 
     def update(self):
+        """Called every frame. Handles
+        movement and other state updates."""
         self.translate(self.speed)
         self.collider.center = self.position
         self.speed.y += 0.5
@@ -36,10 +46,9 @@ class Ball(GameObject):
             self.position.y = self.miny-self.radius
             self.speed.y = -10
 
-        self.draw()
-
-    # The lower edge of the balls bounding box, for collisions
     def lower(self):
+        """The lower edge of the balls bounding box,
+        for collisions"""
         return self.position.y+self.radius
 
 
