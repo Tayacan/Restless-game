@@ -52,6 +52,7 @@ def main():
                     player.speed.x += movespeed
 
         # Test new collision stuff
+        player.update()
         col = player.collider.collision(testBox.collider)
 
         player.translate(col.minTranslation)
@@ -67,7 +68,7 @@ def main():
                         ,(800,groundlvl)
                         ,3)
         testBox.update()
-        player.update()
+        player.draw()
         pygame.display.flip()
 
 if __name__ == "__main__":
