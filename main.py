@@ -12,6 +12,13 @@ def stop():
     pygame.quit()
     sys.exit()
 
+def sign(n):
+    if n < 0:
+        return -1
+    elif n > 0:
+        return 1
+    return 0
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800,600))
@@ -45,7 +52,13 @@ def main():
                     player.speed.x += movespeed
 
         # Test new collision stuff
-        print player.collider.collision(testBox.collider)
+        col = player.collider.collision(testBox.collider)
+
+        player.translate(col.minTranslation)
+        if sign(col.minTranslation.y) == -1:
+            player.speed.y = -10
+        elif sign(col.minTranslation.y) == 1:
+            player.speed.y = 10
 
         # Drawing
         screen.fill((0,0,0))
