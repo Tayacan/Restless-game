@@ -29,6 +29,8 @@ class Vector2:
         return math.sqrt(self.sqrdMagnitude())
 
     def normalized(self):
+        if self.magnitude() == 0:
+            return self
         return Vector2(self.x / self.magnitude(),self.y / self.magnitude())
 
     def min(a,b):
@@ -46,7 +48,7 @@ class Vector2:
         return (a-b).magnitude()
 
     def clampMagnitude(self,m):
-        return self.normalized * m
+        return self.normalized() * m
 
     def lerp(fromv,tov,t):
         return Vector2(fromv.x + (tov.x-fromv.x)*t
