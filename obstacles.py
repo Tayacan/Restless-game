@@ -26,6 +26,3 @@ class Box(GameObject):
                                     ,self.width
                                     ,self.height)
                         ,3)
-
-    def update(self):
-        self.draw()

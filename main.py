@@ -3,6 +3,7 @@
 import pygame
 from pygame.locals import *
 from obstacles import Box
+from game import Game
 
 import sys
 
@@ -32,6 +33,8 @@ def main():
 
     groundlvl = player.miny
 
+    game = Game([testBox,player])
+
     while(True):
         # Limit the framerate
         clock.tick(60)
@@ -52,23 +55,25 @@ def main():
                     player.speed.x += movespeed
 
         # Test new collision stuff
-        player.update()
-        col = player.collider.collision(testBox.collider)
+        #player.update()
+        #col = player.collider.collision(testBox.collider)
 
-        player.translate(col.minTranslation)
-        if sign(col.minTranslation.y) == -1:
-            player.speed.y = -10
-        elif sign(col.minTranslation.y) == 1:
-            player.speed.y = 10
+        #player.translate(col.minTranslation)
+        #if sign(col.minTranslation.y) == -1:
+        #    player.speed.y = -10
+        #elif sign(col.minTranslation.y) == 1:
+        #    player.speed.y = 10
+
 
         # Drawing
         screen.fill((0,0,0))
+        game.run()
         pygame.draw.line(screen,(255,255,255)
                         ,(0,groundlvl)
                         ,(800,groundlvl)
                         ,3)
-        testBox.update()
-        player.draw()
+        #testBox.update()
+        #player.draw()
         pygame.display.flip()
 
 if __name__ == "__main__":
