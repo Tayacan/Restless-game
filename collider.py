@@ -66,4 +66,4 @@ class BoxCollider(Collider):
 
     def collision(self,other):
         # TODO
-        pass
+        return Collision()

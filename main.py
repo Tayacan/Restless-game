@@ -4,6 +4,7 @@ import pygame
 from pygame.locals import *
 from obstacles import Box
 from game import Game
+from collider import BoxCollider
 
 import sys
 
@@ -13,13 +14,6 @@ def stop():
     pygame.quit()
     sys.exit()
 
-def sign(n):
-    if n < 0:
-        return -1
-    elif n > 0:
-        return 1
-    return 0
-
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800,600))
@@ -28,12 +22,19 @@ def main():
     movespeed = 3
 
     testBox = Box(screen)
+    ground = Box(screen)
+    ground.position.y = 610
+    ground.height = 110
+    ground.position.x = 400
+    ground.width = 1000
+    ground.collider = BoxCollider([Vector2(-10,500)
+                                  ,Vector2(810,500)])
 
     clock = pygame.time.Clock()
 
     groundlvl = player.miny
 
-    game = Game([testBox,player])
+    game = Game([testBox,player,ground])
 
     while(True):
         # Limit the framerate
@@ -54,26 +55,9 @@ def main():
                 elif e.key == K_LEFT:
                     player.speed.x += movespeed
 
-        # Test new collision stuff
-        #player.update()
-        #col = player.collider.collision(testBox.collider)
-
-        #player.translate(col.minTranslation)
-        #if sign(col.minTranslation.y) == -1:
-        #    player.speed.y = -10
-        #elif sign(col.minTranslation.y) == 1:
-        #    player.speed.y = 10
-
-
         # Drawing
         screen.fill((0,0,0))
         game.run()
-        pygame.draw.line(screen,(255,255,255)
-                        ,(0,groundlvl)
-                        ,(800,groundlvl)
-                        ,3)
-        #testBox.update()
-        #player.draw()
         pygame.display.flip()
 
 if __name__ == "__main__":

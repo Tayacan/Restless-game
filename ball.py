@@ -3,6 +3,13 @@ from vector2 import Vector2
 from gameobject import GameObject
 from collider import *
 
+def sign(n):
+    if n < 0:
+        return -1
+    elif n > 0:
+        return 1
+    return 0
+
 class Ball(GameObject):
     """The ball that the player controls."""
     def __init__(self,screen):
@@ -42,9 +49,16 @@ class Ball(GameObject):
         self.collider.center = self.position
         self.speed.y += 0.5
 
-        if self.lower() >= self.miny:
-            self.position.y = self.miny-self.radius
+        #if self.lower() >= self.miny:
+        #    self.position.y = self.miny-self.radius
+        #    self.speed.y = -10
+
+    def onCollision(self,col,obj):
+        self.translate(col.minTranslation)
+        if sign(col.minTranslation.y) == -1:
             self.speed.y = -10
+        elif sign(col.minTranslation.y) == 1:
+            self.speed.y = 10
 
     def lower(self):
         """The lower edge of the balls bounding box,
