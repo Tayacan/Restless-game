@@ -1,9 +1,10 @@
 import pygame
 
 class Game:
-    def __init__(self,objects):
+    def __init__(self,objects,camera):
         self.objects = objects
         self.colliders = [o for o in self.objects if o.collider != None]
+        self.mainCamera = camera
 
     def update(self):
         for o in self.objects:
@@ -11,7 +12,8 @@ class Game:
 
     def draw(self):
         for o in self.objects:
-            o.draw()
+            p = self.mainCamera.worldToScreen(o.position)
+            o.draw(p)
 
     def collision(self):
         temp = self.colliders
@@ -29,3 +31,4 @@ class Game:
         self.update()
         self.collision()
         self.draw()
+

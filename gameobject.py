@@ -15,8 +15,21 @@ class GameObject:
     def update(self):
         pass
 
-    def draw(self):
+    def draw(self,pos):
         pass
 
     def onCollision (self,collision,obj):
         pass
+
+class Camera(GameObject):
+    def __init__(self):
+        GameObject.__init__(self)
+        #self.screen = screen
+
+    def screenToWorld(self,v):
+        return v + self.position
+
+    def worldToScreen(self,v):
+        return v - self.position
+
+

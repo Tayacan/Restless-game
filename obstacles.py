@@ -19,10 +19,10 @@ class Box(GameObject):
         self.height = 50
         self.width = 80
 
-    def draw(self):
+    def draw(self,pos):
         pygame.draw.rect(self.screen,(255,255,255)
-                        ,pygame.Rect(self.position.x-self.width/2
-                                    ,self.position.y-self.height
+                        ,pygame.Rect(pos.x-self.width/2
+                                    ,pos.y-self.height
                                     ,self.width
                                     ,self.height)
                         ,3)

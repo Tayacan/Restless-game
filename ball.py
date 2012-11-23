@@ -33,12 +33,12 @@ class Ball(GameObject):
         # TODO: Replace with proper collision checking
         self.miny = 500
 
-    def draw(self):
+    def draw(self,pos):
         """Draw the player"""
         pygame.draw.circle(self.screen
                           ,self.color
-                          ,(int(self.position.x)
-                           ,int(self.position.y))
+                          ,(int(pos.x)
+                           ,int(pos.y))
                           ,self.radius
                           ,self.lineWidth)
 
