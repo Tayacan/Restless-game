@@ -3,10 +3,10 @@
 import pygame
 from pygame.locals import *
 from obstacles import Box
-from game import Game
-from collider import BoxCollider
-from gameobject import Camera
-from vector2 import Vector2
+from gamelib.game import Game
+from gamelib.collider import BoxCollider
+from gamelib.gameobject import Camera
+from gamelib.vector2 import Vector2
 
 import sys
 

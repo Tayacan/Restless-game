@@ -1,7 +1,7 @@
 import pygame
-from vector2 import Vector2
-from gameobject import GameObject
-from collider import *
+from gamelib.vector2 import Vector2
+from gamelib.gameobject import GameObject
+from gamelib.collider import *
 
 def sign(n):
     if n < 0:
