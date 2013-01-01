@@ -1,7 +1,9 @@
-import pygame
+import pygame,sys
+from pygame.locals import *
 from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
 from gamelib.collider import *
+from gamelib.input import Input
 
 def sign(n):
     if n < 0:
@@ -26,6 +28,8 @@ class Ball(GameObject):
         self.radius = 15
         self.lineWidth = 3
 
+        self.movespeed = 3
+
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
 
@@ -41,6 +45,19 @@ class Ball(GameObject):
     def update(self):
         """Called every frame. Handles
         movement and other state updates."""
+
+        if Input.down(K_LEFT):
+            self.speed.x -= self.movespeed
+        if Input.up(K_LEFT):
+            self.speed.x += self.movespeed
+        if Input.down(K_RIGHT):
+            self.speed.x += self.movespeed
+        if Input.up(K_RIGHT):
+            self.speed.x -= self.movespeed
+        if Input.isset("QUIT"):
+            pygame.quit()
+            sys.exit()
+
         self.translate(self.speed)
         self.collider.center = self.position
         self.speed.y += 0.5

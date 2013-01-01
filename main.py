@@ -7,6 +7,7 @@ from gamelib.game import Game
 from gamelib.collider import BoxCollider
 from gamelib.gameobject import Camera
 from gamelib.vector2 import Vector2
+from gamelib.input import Input
 
 import sys
 
@@ -23,10 +24,6 @@ class PlatformCamera(Camera):
             self.position.y = self.player.position.y - 100
         if self.worldToScreen(self.player.position).y > 500:
             self.position.y = self.player.position.y - 500
-
-def stop():
-    pygame.quit()
-    sys.exit()
 
 def main():
     pygame.init()
@@ -48,21 +45,6 @@ def main():
     while(True):
         # Limit the framerate
         clock.tick(60)
-
-        # Event handling
-        for e in pygame.event.get():
-            if e.type == QUIT:
-                stop()
-            elif e.type == KEYDOWN:
-                if e.key == K_RIGHT:
-                    player.speed.x += movespeed
-                elif e.key == K_LEFT:
-                    player.speed.x -= movespeed
-            elif e.type == KEYUP:
-                if e.key == K_RIGHT:
-                    player.speed.x -= movespeed
-                elif e.key == K_LEFT:
-                    player.speed.x += movespeed
 
         # Drawing
         screen.fill((0,0,0))

@@ -1,4 +1,5 @@
 import pygame
+from input import *
 
 class Game:
     def __init__(self,objects,camera):
@@ -7,9 +8,17 @@ class Game:
         self.mainCamera = camera
 
     def update(self):
+        # Handle input
+        Input.update_mouse(pygame.mouse.get_pressed(), pygame.mouse.get_pos())
+        Input.add_events(pygame.event.get())
+
+        # Update objects
         for o in self.objects:
             o.update()
         self.mainCamera.update()
+
+        # Finish input handling
+        Input.update()
 
     def draw(self):
         for o in self.objects:
