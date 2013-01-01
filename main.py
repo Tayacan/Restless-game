@@ -19,6 +19,10 @@ class PlatformCamera(Camera):
 
     def update(self):
         self.position.x = self.player.position.x - 400
+        if self.worldToScreen(self.player.position).y < 100:
+            self.position.y = self.player.position.y - 100
+        if self.worldToScreen(self.player.position).y > 500:
+            self.position.y = self.player.position.y - 500
 
 def stop():
     pygame.quit()
@@ -31,24 +35,15 @@ def main():
     player = Ball(screen)
     movespeed = 3
 
-    testBox = Box(screen)
-    ground = Box(screen)
-    ground.position.y = 610
-    ground.height = 110
-    ground.position.x = 400
-    ground.width = 1000
-    ground.collider = BoxCollider([Vector2(-100,500)
-                                  ,Vector2(900,500)
-                                  ,Vector2(900,610)
-                                  ,Vector2(-100,610)])
+    testBox = Box(screen,(700,500),(100,100))
+    ground = Box(screen,(400,610),(1000,110))
+    safety = Box(screen,(400,1000),(2000,100))
 
     clock = pygame.time.Clock()
 
-    groundlvl = player.miny
-
     c =  PlatformCamera(player)
 
-    game = Game([testBox,player,ground],c)
+    game = Game([testBox,player,ground,safety],c)
 
     while(True):
         # Limit the framerate
@@ -71,7 +66,6 @@ def main():
 
         # Drawing
         screen.fill((0,0,0))
-        c.update()
         game.run()
         pygame.display.flip()
 

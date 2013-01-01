@@ -9,6 +9,7 @@ class Game:
     def update(self):
         for o in self.objects:
             o.update()
+        self.mainCamera.update()
 
     def draw(self):
         for o in self.objects:

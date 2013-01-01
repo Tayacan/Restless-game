@@ -29,10 +29,6 @@ class Ball(GameObject):
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
 
-        # Ground level
-        # TODO: Replace with proper collision checking
-        self.miny = 500
-
     def draw(self,pos):
         """Draw the player"""
         pygame.draw.circle(self.screen

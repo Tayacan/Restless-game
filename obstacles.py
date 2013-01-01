@@ -4,20 +4,20 @@ from gamelib.gameobject import GameObject
 from gamelib.collider import BoxCollider
 
 class Box(GameObject):
-    def __init__(self,screen):
+    def __init__(self,screen,pos,size):
         GameObject.__init__(self)
-        self.position.x = 700
-        self.position.y = 500
+        self.position.x = pos[0]
+        self.position.y = pos[1]
 
-        self.collider = BoxCollider([Vector2(660,450)
-                                    ,Vector2(660,500)
-                                    ,Vector2(740,500)
-                                    ,Vector2(740,450)])
+        self.width = size[0]
+        self.height = size[1]
+
+        self.collider = BoxCollider([Vector2(self.position.x - self.width/2,self.position.y)
+                                    ,Vector2(self.position.x - self.width/2,self.position.y - self.height)
+                                    ,Vector2(self.position.x + self.width/2,self.position.y - self.height)
+                                    ,Vector2(self.position.x + self.width/2,self.position.y)])
 
         self.screen = screen
-
-        self.height = 50
-        self.width = 80
 
     def draw(self,pos):
         pygame.draw.rect(self.screen,(255,255,255)
