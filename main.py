@@ -7,7 +7,7 @@ from gamelib.game import Game
 from gamelib.collider import BoxCollider
 from gamelib.gameobject import Camera
 from gamelib.vector2 import Vector2
-from gamelib.input import Input
+from powerup import *
 
 import sys
 
@@ -35,12 +35,13 @@ def main():
     testBox = Box(screen,(700,500),(100,100))
     ground = Box(screen,(400,610),(1000,110))
     safety = Box(screen,(400,1000),(2000,100))
+    power = HigherJump(screen,Vector2(100,500))
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player)
 
-    game = Game([testBox,player,ground,safety],c)
+    game = Game([power,testBox,player,ground,safety],c)
 
     while(True):
         # Limit the framerate

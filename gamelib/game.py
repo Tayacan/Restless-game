@@ -32,9 +32,8 @@ class Game:
             for c2 in temp:
                 col1 = c1.collider.collision(c2.collider)
                 col2 = c2.collider.collision(c1.collider)
-                if col1.intersecting:
+                if col1.intersecting or col2.intersecting:
                     c1.onCollision(col1,c2)
-                if col2.intersecting:
                     c2.onCollision(col2,c1)
 
     def run(self):

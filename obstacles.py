@@ -1,7 +1,7 @@
 import pygame
 from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
-from gamelib.collider import BoxCollider
+from gamelib.collider import PolyCollider
 
 class Box(GameObject):
     def __init__(self,screen,pos,size):
@@ -12,7 +12,7 @@ class Box(GameObject):
         self.width = size[0]
         self.height = size[1]
 
-        self.collider = BoxCollider([Vector2(self.position.x - self.width/2,self.position.y)
+        self.collider = PolyCollider([Vector2(self.position.x - self.width/2,self.position.y)
                                     ,Vector2(self.position.x - self.width/2,self.position.y - self.height)
                                     ,Vector2(self.position.x + self.width/2,self.position.y - self.height)
                                     ,Vector2(self.position.x + self.width/2,self.position.y)])

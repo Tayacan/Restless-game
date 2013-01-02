@@ -12,6 +12,9 @@ def sign(n):
         return 1
     return 0
 
+def lerp(n,m,t):
+    return n + (m - n) * t
+
 class Ball(GameObject):
     """The ball that the player controls."""
     def __init__(self,screen):
@@ -29,6 +32,8 @@ class Ball(GameObject):
         self.lineWidth = 3
 
         self.movespeed = 3
+        self.startJumpspeed = 7
+        self.jumpspeed = self.startJumpspeed
 
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
@@ -58,20 +63,18 @@ class Ball(GameObject):
             pygame.quit()
             sys.exit()
 
+        self.jumpspeed = lerp(self.jumpspeed,self.startJumpspeed,0.001)
+
         self.translate(self.speed)
         self.collider.center = self.position
         self.speed.y += 0.5
 
-        #if self.lower() >= self.miny:
-        #    self.position.y = self.miny-self.radius
-        #    self.speed.y = -10
-
     def onCollision(self,col,obj):
         self.translate(col.minTranslation)
         if sign(col.minTranslation.y) == -1:
-            self.speed.y = -10
+            self.speed.y = -self.jumpspeed
         elif sign(col.minTranslation.y) == 1:
-            self.speed.y = 10
+            self.speed.y = self.jumpspeed
 
     def lower(self):
         """The lower edge of the balls bounding box,

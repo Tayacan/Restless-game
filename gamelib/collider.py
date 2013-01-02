@@ -38,7 +38,7 @@ class CircleCollider(Collider):
 
     def collision(self,other):
         col = Collision()
-        if other.__class__.__name__ == 'BoxCollider':
+        if isinstance(other,PolyCollider):
             for line in other.getLines():
                 c,intersects = self.lineIntersects(line[0],line[1])
                 if intersects:
@@ -51,7 +51,7 @@ class CircleCollider(Collider):
 
 
 
-class BoxCollider(Collider):
+class PolyCollider(Collider):
     def __init__(self,points):
         self.points = points
 
@@ -67,3 +67,11 @@ class BoxCollider(Collider):
     def collision(self,other):
         # TODO
         return Collision()
+
+class BoxCollider(PolyCollider):
+    def __init__(self,rect):
+        lines = [Vector2(rect.left,rect.top)
+                ,Vector2(rect.right,rect.top)
+                ,Vector2(rect.right,rect.bottom)
+                ,Vector2(rect.left,rect.bottom)]
+        PolyCollider.__init__(self,lines)
