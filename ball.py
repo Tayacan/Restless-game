@@ -4,6 +4,7 @@ from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
 from gamelib.collider import *
 from gamelib.input import Input
+from gamelib.game import Game
 from obstacles import *
 
 def sign(n):
@@ -24,10 +25,6 @@ class Ball(GameObject):
 
         self.name = "Player"
 
-        # Starting position and speed
-        self.position = Vector2(400,300)
-        self.speed = Vector2(0,1)
-
         self.screen = screen
 
         self.color = (255,255,255)
@@ -36,10 +33,16 @@ class Ball(GameObject):
 
         self.movespeed = 3
         self.startJumpspeed = 7
-        self.jumpspeed = self.startJumpspeed
+        self.onLoad()
 
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
+
+    def onLoad(self):
+        # Starting position and speed
+        self.position = Vector2(400,300)
+        self.speed = Vector2(0,1)
+        self.jumpspeed = self.startJumpspeed
 
     def draw(self,pos):
         """Draw the player"""
@@ -80,7 +83,7 @@ class Ball(GameObject):
             self.speed.y = self.jumpspeed
 
         if obj.name == "Spikes":
-            print("You died")
+            Game.loadSceneByName("GameOver")
 
 
 

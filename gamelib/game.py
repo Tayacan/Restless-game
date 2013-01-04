@@ -17,6 +17,16 @@ class Game:
     @staticmethod
     def loadScene(n):
         Game.currentScene = Game.scenes[n]
+        Game.currentScene.onLoad()
+
+    @staticmethod
+    def loadSceneByName(name):
+        for scene in Game.scenes:
+            if scene.name == name:
+                Game.currentScene = scene
+                Game.currentScene.onLoad()
+                return
+        print("No such scene")
 
     @staticmethod
     def runGame():
@@ -28,10 +38,24 @@ class Game:
             pygame.display.flip()
 
 class Scene:
-    def __init__(self,objects,camera):
+    num = 0
+    names = []
+    def __init__(self,objects,camera,name="Scene"):
+        # Give each scene a unique name
+        if name in Scene.names:
+            name += str(num)
+            num += 1
+        self.name = name
+        Scene.names.append(name)
+
         self.objects = objects
         self.mainCamera = camera
         self.colliders = [o for o in self.objects if o.collider != None]
+
+    def onLoad(self):
+        for o in self.objects:
+            o.onLoad()
+        self.mainCamera.onLoad()
 
     def update(self):
         # Handle input
