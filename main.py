@@ -3,11 +3,12 @@
 import pygame
 from pygame.locals import *
 from obstacles import *
-from gamelib.game import Game
+from gamelib.game import *
 from gamelib.collider import BoxCollider
 from gamelib.gameobject import Camera
 from gamelib.vector2 import Vector2
 from powerup import *
+from time import sleep
 
 import sys
 
@@ -24,6 +25,24 @@ class PlatformCamera(Camera):
             self.position.y = self.player.position.y - 100
         if self.worldToScreen(self.player.position).y > 500:
             self.position.y = self.player.position.y - 500
+
+class TestText(GameObject):
+    def __init__(self,screen):
+        GameObject.__init__(self)
+        self.screen = screen
+        self.startTime = pygame.time.get_ticks()
+
+    def draw(self,pos):
+        self.screen.fill((0,0,0))
+        if pygame.font.get_default_font():
+            fontname = pygame.font.get_default_font()
+            font = pygame.font.SysFont(fontname,50)
+            fonts = font.render("Test",True,(255,255,255))
+            self.screen.blit(fonts,pygame.Rect(100,100,300,300))
+
+    def update(self):
+        if pygame.time.get_ticks() - self.startTime > 2000:
+            Game.loadScene(1)
 
 def main():
     pygame.init()
@@ -43,7 +62,9 @@ def main():
 
     c =  PlatformCamera(player)
 
-    game = Game([power,spikes,depower,testBox,player,ground,safety],c)
+    introScene = Scene([TestText(screen)],c)
+    mainScene = Scene([power,spikes,depower,testBox,player,ground,safety],c)
+    Game.start([introScene,mainScene],screen)
 
     while(True):
         # Limit the framerate

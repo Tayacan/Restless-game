@@ -2,10 +2,36 @@ import pygame
 from input import *
 
 class Game:
+    scenes = []
+    currentScene = None
+    screen = None
+    clock = pygame.time.Clock()
+
+    @staticmethod
+    def start(scenes,screen):
+        Game.screen = screen
+        Game.scenes = scenes
+        Game.currentScene = scenes[0]
+        Game.runGame()
+
+    @staticmethod
+    def loadScene(n):
+        Game.currentScene = Game.scenes[n]
+
+    @staticmethod
+    def runGame():
+        while(True):
+            Game.clock.tick(60)
+
+            Game.screen.fill((0,0,0))
+            Game.currentScene.run()
+            pygame.display.flip()
+
+class Scene:
     def __init__(self,objects,camera):
         self.objects = objects
-        self.colliders = [o for o in self.objects if o.collider != None]
         self.mainCamera = camera
+        self.colliders = [o for o in self.objects if o.collider != None]
 
     def update(self):
         # Handle input
@@ -40,4 +66,3 @@ class Game:
         self.update()
         self.collision()
         self.draw()
-
