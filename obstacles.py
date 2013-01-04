@@ -37,8 +37,11 @@ class Spikes(GameObject):
         self.flip = flip
         self.spikeWidth = 10
         self.spikeHeight = 15
-        self.offset = self.spikeHeight * (not flip)
         self.width = self.spikeWidth * number
+
+        # Offset is 0 if the spikes are not flipped, otherwise 15, 
+        # so they'll be drawn in the right place.
+        self.offset = self.spikeHeight * (not flip)
 
         self.collider = BoxCollider(pygame.Rect(self.position.x-self.width/2
                                                ,self.position.y-self.offset
@@ -50,8 +53,11 @@ class Spikes(GameObject):
     def drawSpike(self,pos):
         left = pos[0]
         y = pos[1] - self.spikeHeight
+
+        # Upside down if they're supposed to be flipped.
         if(self.flip):
             y = pos[1] + self.spikeHeight
+
         pygame.draw.lines(self.screen,(100,100,100),False,[(left,pos[1])
                                                           ,(left+self.spikeWidth/2,y)
                                                           ,(left+self.spikeWidth,pos[1])])

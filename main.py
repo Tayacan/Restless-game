@@ -7,6 +7,7 @@ from gamelib.game import *
 from gamelib.collider import BoxCollider
 from gamelib.gameobject import Camera
 from gamelib.vector2 import Vector2
+from gameover import *
 from powerup import *
 from time import sleep
 
@@ -53,18 +54,19 @@ def main():
 
     testBox = Box(screen,(700,500),(100,100))
     ground = Box(screen,(400,610),(1000,110))
-    safety = Box(screen,(400,1000),(2000,100))
-    power = HigherJump(screen,Vector2(100,500))
-    depower = NoJump(screen,Vector2(250,500))
-    spikes = Spikes(screen,(700,400),5)
+    njump = NoJump(screen,Vector2(100,500))
+    hjump = HigherJump(screen,Vector2(600,500))
+    roof = Box(screen,(500,410),(100,50))
+    spikes = Spikes(screen,(500,410),5,True)
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player)
 
     introScene = Scene([TestText(screen)],c)
-    mainScene = Scene([power,spikes,depower,testBox,player,ground,safety],c)
-    Game.start([introScene,mainScene],screen)
+    gameOverScene = Scene([GameOver(screen)],c,name="GameOver")
+    mainScene = Scene([njump,hjump,spikes,testBox,player,ground,roof],c,name="Main")
+    Game.start([mainScene,gameOverScene],screen)
 
     while(True):
         # Limit the framerate

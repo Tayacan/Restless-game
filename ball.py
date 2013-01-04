@@ -69,7 +69,7 @@ class Ball(GameObject):
             pygame.quit()
             sys.exit()
 
-        self.jumpspeed = lerp(self.jumpspeed,self.startJumpspeed,0.001)
+        self.jumpspeed = lerp(self.jumpspeed,self.startJumpspeed,0.02)
 
         self.translate(self.speed)
         self.collider.center = self.position
