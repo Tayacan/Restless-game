@@ -4,6 +4,7 @@ from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
 from gamelib.collider import *
 from gamelib.input import Input
+from obstacles import *
 
 def sign(n):
     if n < 0:
@@ -78,10 +79,8 @@ class Ball(GameObject):
         elif sign(col.minTranslation.y) == 1:
             self.speed.y = self.jumpspeed
 
-    def lower(self):
-        """The lower edge of the balls bounding box,
-        for collisions"""
-        return self.position.y+self.radius
+        if obj.name == "Spikes":
+            print("You died")
 
 
 

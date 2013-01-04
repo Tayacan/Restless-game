@@ -2,7 +2,7 @@
 
 import pygame
 from pygame.locals import *
-from obstacles import Box
+from obstacles import *
 from gamelib.game import Game
 from gamelib.collider import BoxCollider
 from gamelib.gameobject import Camera
@@ -36,12 +36,14 @@ def main():
     ground = Box(screen,(400,610),(1000,110))
     safety = Box(screen,(400,1000),(2000,100))
     power = HigherJump(screen,Vector2(100,500))
+    depower = NoJump(screen,Vector2(250,500))
+    spikes = Spikes(screen,(700,400),5)
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player)
 
-    game = Game([power,testBox,player,ground,safety],c)
+    game = Game([power,spikes,depower,testBox,player,ground,safety],c)
 
     while(True):
         # Limit the framerate

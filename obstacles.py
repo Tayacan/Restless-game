@@ -1,7 +1,7 @@
 import pygame
 from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
-from gamelib.collider import PolyCollider
+from gamelib.collider import *
 
 class Box(GameObject):
     def __init__(self,screen,pos,size):
@@ -26,3 +26,38 @@ class Box(GameObject):
                                     ,self.width
                                     ,self.height)
                         ,3)
+
+class Spikes(GameObject):
+    def __init__(self,screen,pos,number,flip=False):
+        GameObject.__init__(self)
+        self.name = "Spikes"
+        self.position.x,self.position.y = pos
+        self.number = number
+
+        self.flip = flip
+        self.spikeWidth = 10
+        self.spikeHeight = 15
+        self.offset = self.spikeHeight * (not flip)
+        self.width = self.spikeWidth * number
+
+        self.collider = BoxCollider(pygame.Rect(self.position.x-self.width/2
+                                               ,self.position.y-self.offset
+                                               ,self.width
+                                               ,self.spikeHeight)
+                                   )
+
+        self.screen = screen
+    def drawSpike(self,pos):
+        left = pos[0]
+        y = pos[1] - self.spikeHeight
+        if(self.flip):
+            y = pos[1] + self.spikeHeight
+        pygame.draw.lines(self.screen,(100,100,100),False,[(left,pos[1])
+                                                          ,(left+self.spikeWidth/2,y)
+                                                          ,(left+self.spikeWidth,pos[1])])
+
+    def draw(self,pos):
+        left = pos.x-self.width/2
+        for n in range(self.number):
+            self.drawSpike((left+self.spikeWidth*n,pos.y))
+
