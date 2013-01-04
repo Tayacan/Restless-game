@@ -21,6 +21,8 @@ class Ball(GameObject):
         # Start out as a basic GameObject, then modify
         GameObject.__init__(self)
 
+        self.name = "Player"
+
         # Starting position and speed
         self.position = Vector2(400,300)
         self.speed = Vector2(0,1)

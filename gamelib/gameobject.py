@@ -5,6 +5,7 @@ class GameObject:
         self.position = Vector2(0,0)
         self.rotation = 0
         self.collider = None
+        self.name = "Object"
 
     def translate(self,v):
         self.position += v
