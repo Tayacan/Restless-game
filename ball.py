@@ -1,4 +1,4 @@
-import pygame,sys
+import pygame
 from pygame.locals import *
 from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
@@ -65,9 +65,6 @@ class Ball(GameObject):
             self.speed.x += self.movespeed
         if Input.up(K_RIGHT):
             self.speed.x -= self.movespeed
-        if Input.isset("QUIT"):
-            pygame.quit()
-            sys.exit()
 
         self.jumpspeed = lerp(self.jumpspeed,self.startJumpspeed,0.02)
 

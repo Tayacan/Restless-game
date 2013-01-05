@@ -1,4 +1,5 @@
 import pygame
+import sys
 from input import *
 
 class Game:
@@ -61,6 +62,10 @@ class Scene:
         # Handle input
         Input.update_mouse(pygame.mouse.get_pressed(), pygame.mouse.get_pos())
         Input.add_events(pygame.event.get())
+
+        if Input.isset("QUIT"):
+            pygame.quit()
+            sys.exit()
 
         # Update objects
         for o in self.objects:
