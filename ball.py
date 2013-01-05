@@ -40,7 +40,7 @@ class Ball(GameObject):
 
     def onLoad(self):
         # Starting position and speed
-        self.position = Vector2(400,300)
+        self.position = Vector2(0,300)
         self.speed = Vector2(0,1)
         self.jumpspeed = self.startJumpspeed
 

@@ -55,9 +55,9 @@ def main():
     testBox = Box(screen,(700,500),(100,100))
     ground = Box(screen,(400,610),(1000,110))
     njump = NoJump(screen,Vector2(100,500))
-    hjump = HigherJump(screen,Vector2(600,500))
-    roof = Box(screen,(500,410),(100,50))
-    spikes = Spikes(screen,(500,410),5,True)
+    hjump = HigherJump(screen,Vector2(610,500))
+    roof = Box(screen,(475,410),(200,50))
+    spikes = Spikes(screen,(475,410),15,True)
 
     clock = pygame.time.Clock()
 
