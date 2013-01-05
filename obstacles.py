@@ -12,10 +12,10 @@ class Box(GameObject):
         self.width = size[0]
         self.height = size[1]
 
-        self.collider = PolyCollider([Vector2(self.position.x - self.width/2,self.position.y)
-                                    ,Vector2(self.position.x - self.width/2,self.position.y - self.height)
-                                    ,Vector2(self.position.x + self.width/2,self.position.y - self.height)
-                                    ,Vector2(self.position.x + self.width/2,self.position.y)])
+        self.collider = BoxCollider(pygame.Rect(self.position.x - self.width/2
+                                               ,self.position.y - self.height
+                                               ,self.width
+                                               ,self.height))
 
         self.screen = screen
 
