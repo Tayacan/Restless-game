@@ -42,7 +42,7 @@ class Ball(GameObject):
         pygame.mixer.quit()
         pygame.mixer.pre_init(44100, -16, 2)
         pygame.mixer.init()
-        mpath = "sound\\bounce.ogg"
+        mpath = path.join("sound","bounce.ogg")
         self.bounce = pygame.mixer.Sound(mpath)
         
         self.onLoad()
@@ -80,9 +80,14 @@ class Ball(GameObject):
         self.translate(self.speed)
         self.collider.center = self.position
         self.speed.y += 0.5
+        
+        if self.position.y >= 1000:
+            Game.loadSceneByName("GameOver")
 
     def onCollision(self,col,obj):
-        if obj.name != "NoJump":
+        nobounce = ["NoJump","WinStar"]
+    
+        if obj.name not in nobounce:
             channel = self.bounce.play()
          
         # Bounce off the object

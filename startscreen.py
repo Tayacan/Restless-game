@@ -4,9 +4,7 @@ from gamelib.gameobject import GameObject
 from gamelib.game import Game
 from gamelib.input import Input
 
-class GameOver(GameObject):
-    currentScene = "Main"
-
+class StartScreen(GameObject):
     def __init__(self,screen):
         GameObject.__init__(self)
         self.screen = screen
@@ -17,8 +15,8 @@ class GameOver(GameObject):
             fontname = pygame.font.get_default_font()
             font = pygame.font.SysFont(fontname,50)
             smallFont = pygame.font.SysFont(fontname,30)
-            fontSurface = font.render("Game Over",True,(255,255,255))
-            text = smallFont.render("- Press space to try again -",True,(255,255,255))
+            fontSurface = font.render("Restless",True,(255,255,255))
+            text = smallFont.render("- Press space to start -",True,(255,255,255))
             rect = fontSurface.get_rect()
             smallRect = text.get_rect()
             self.screen.blit(fontSurface,pygame.Rect((self.screen.get_width()-rect.width)/2
@@ -32,4 +30,4 @@ class GameOver(GameObject):
 
     def update(self):
         if Input.down(K_SPACE):
-            Game.loadSceneByName(GameOver.currentScene)
+            Game.loadSceneByName("Main")
