@@ -1,4 +1,5 @@
 import pygame
+from os import path
 from pygame.locals import *
 from gamelib.vector2 import Vector2
 from gamelib.gameobject import GameObject
@@ -33,10 +34,18 @@ class Ball(GameObject):
 
         self.movespeed = 3
         self.startJumpspeed = 7
-        self.onLoad()
 
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
+        
+        # Sound effects
+        pygame.mixer.quit()
+        pygame.mixer.pre_init(44100, -16, 2)
+        pygame.mixer.init()
+        mpath = "sound\\bounce.ogg"
+        self.bounce = pygame.mixer.Sound(mpath)
+        
+        self.onLoad()
 
     def onLoad(self):
         # Starting position and speed
@@ -73,6 +82,10 @@ class Ball(GameObject):
         self.speed.y += 0.5
 
     def onCollision(self,col,obj):
+        if obj.name != "NoJump":
+            channel = self.bounce.play()
+         
+        # Bounce off the object
         self.translate(col.minTranslation)
         if sign(col.minTranslation.y) == -1:
             self.speed.y = -self.jumpspeed

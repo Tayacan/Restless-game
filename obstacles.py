@@ -8,6 +8,8 @@ class Box(GameObject):
         GameObject.__init__(self)
         self.position.x = pos[0]
         self.position.y = pos[1]
+        
+        self.name = "Box"
 
         self.width = size[0]
         self.height = size[1]

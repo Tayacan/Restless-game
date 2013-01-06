@@ -44,6 +44,7 @@ class SuperJump(PowerUp):
 class NoJump(PowerUp):
     def __init__(self,screen,pos):
         PowerUp.__init__(self,screen,pos,(255,100,100))
+        self.name = "NoJump"
 
     def onCollision(self,col,obj):
         if isinstance(obj,Ball):
