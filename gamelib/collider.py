@@ -5,7 +5,6 @@ import math
 class Collision:
     def __init__(self):
         self.intersecting = False
-        self.willIntersect = False
         self.minTranslation = Vector2(0,0)
 
     def __str__(self):
@@ -70,8 +69,18 @@ class PolyCollider(Collider):
 
 class BoxCollider(PolyCollider):
     def __init__(self,rect):
+        self.rect = rect
         lines = [Vector2(rect.left,rect.top)
                 ,Vector2(rect.right,rect.top)
                 ,Vector2(rect.right,rect.bottom)
                 ,Vector2(rect.left,rect.bottom)]
         PolyCollider.__init__(self,lines)
+        
+    def collision(self,other):
+        col = Collision()
+        if isinstance(other,BoxCollider):
+            if self.rect.colliderect(other.rect):
+                col.intersecting = True
+                # TODO figure out minTranslation
+        return col
+                
