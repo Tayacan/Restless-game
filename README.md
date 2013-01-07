@@ -6,3 +6,9 @@
 <p>
 In short, the game is about a ball which never stops bouncing. The player can't control the bouncing, only the horizontal movement. Various objects in the world will affect how the ball bounces, and the player then has to overcome obstacles using these.
 </p>
+
+<h2>Dependencies</h2>
+<p>
+Python 2<br />
+Pygame
+</p>
