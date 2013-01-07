@@ -5,7 +5,7 @@ from gamelib.game import Game
 from gamelib.input import Input
 
 class GameOver(GameObject):
-    currentScene = "Main"
+    currentScene = "Level0"
 
     def __init__(self):
         GameObject.__init__(self)

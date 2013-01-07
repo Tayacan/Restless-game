@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pygame
+import editor
 from pygame.locals import *
 from obstacles import *
 from gamelib.game import *
@@ -49,13 +50,15 @@ def main():
     c =  PlatformCamera(player,screen)
 
     # Set up the scenes
+    level0Objs = editor.load("levels/level0.lvl")
+    level0 = Scene(level0Objs + [player],c,name="Level0")
     winScene = Scene([WinScene()],c,name="WinScene")
     startScreen = Scene([StartScreen()],c,name="StartScene")
     gameOverScene = Scene([GameOver()],c,name="GameOver")
     mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
 
     # Start the game
-    Game.start([startScreen,mainScene,gameOverScene,winScene],screen)
+    Game.start([startScreen,mainScene,gameOverScene,winScene,level0],screen)
 
 if __name__ == "__main__":
     main()

@@ -29,4 +29,4 @@ class StartScreen(GameObject):
 
     def update(self):
         if Input.down(K_SPACE):
-            Game.loadSceneByName("Main")
+            Game.loadSceneByName("Level0")

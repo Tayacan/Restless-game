@@ -4,8 +4,8 @@ import sys
 import pygame
 from gamelib.game import *
 from gamelib.gameobject import *
-from editor.parselevel import Parser
-from editor.screen import Screen
+from editorscripts.parselevel import Parser
+from editorscripts.screen import Screen
 
 def load(path):
     f = open(path)
