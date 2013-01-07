@@ -20,13 +20,11 @@ def lerp(n,m,t):
 
 class Ball(GameObject):
     """The ball that the player controls."""
-    def __init__(self,screen):
+    def __init__(self):
         # Start out as a basic GameObject, then modify
         GameObject.__init__(self)
 
         self.name = "Player"
-
-        self.screen = screen
 
         self.color = (255,255,255)
         self.radius = 15
@@ -37,14 +35,14 @@ class Ball(GameObject):
 
         # Woop, colliders are awesome
         self.collider = CircleCollider(self.radius,self.position)
-        
+
         # Sound effects
         pygame.mixer.quit()
         pygame.mixer.pre_init(44100, -16, 2)
         pygame.mixer.init()
         mpath = path.join("sound","bounce.ogg")
         self.bounce = pygame.mixer.Sound(mpath)
-        
+
         self.onLoad()
 
     def onLoad(self):
@@ -53,9 +51,9 @@ class Ball(GameObject):
         self.speed = Vector2(0,1)
         self.jumpspeed = self.startJumpspeed
 
-    def draw(self,pos):
+    def draw(self,pos,screen):
         """Draw the player"""
-        pygame.draw.circle(self.screen
+        pygame.draw.circle(screen
                           ,self.color
                           ,(int(pos.x)
                            ,int(pos.y))
@@ -80,16 +78,16 @@ class Ball(GameObject):
         self.translate(self.speed)
         self.collider.center = self.position
         self.speed.y += 0.5
-        
+
         if self.position.y >= 1000:
             Game.loadSceneByName("GameOver")
 
     def onCollision(self,col,obj):
         nobounce = ["NoJump","WinStar"]
-    
+
         if obj.name not in nobounce:
             channel = self.bounce.play()
-         
+
         # Bounce off the object
         self.translate(col.minTranslation)
         if sign(col.minTranslation.y) == -1:

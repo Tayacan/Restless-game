@@ -33,27 +33,27 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((800,600))
 
-    player = Ball(screen)
+    player = Ball()
     movespeed = 3
 
-    testBox = Box(screen,(700,500),(100,100))
-    ground = Box(screen,(400,610),(1000,110))
-    njump = NoJump(screen,Vector2(100,500))
-    hjump = HigherJump(screen,Vector2(610,500))
-    roof = Box(screen,(475,410),(200,50))
-    spikes = Spikes(screen,(475,410),15,True)
-    win = WinFlag(screen,Vector2(475,335))
+    testBox = Box((700,500),(100,100))
+    ground = Box((400,610),(1000,110))
+    njump = NoJump(Vector2(100,500))
+    hjump = HigherJump(Vector2(610,500))
+    roof = Box((475,410),(200,50))
+    spikes = Spikes((475,410),15,True)
+    win = WinFlag(Vector2(475,335))
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player)
 
     # Set up the scenes
-    winScene = Scene([WinScene(screen)],c,name="WinScene")
-    startScreen = Scene([StartScreen(screen)],c,name="StartScene")
-    gameOverScene = Scene([GameOver(screen)],c,name="GameOver")
-    mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
-    
+    winScene = Scene([WinScene()],c,screen,name="WinScene")
+    startScreen = Scene([StartScreen()],c,screen,name="StartScene")
+    gameOverScene = Scene([GameOver()],c,screen,name="GameOver")
+    mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,screen,name="Main")
+
     # Start the game
     Game.start([startScreen,mainScene,gameOverScene,winScene],screen)
 

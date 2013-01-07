@@ -41,7 +41,7 @@ class Game:
 class Scene:
     num = 0
     names = []
-    def __init__(self,objects,camera,name="Scene"):
+    def __init__(self,objects,camera,screen,name="Scene"):
         # Give each scene a unique name
         if name in Scene.names:
             name += str(num)
@@ -51,6 +51,7 @@ class Scene:
 
         self.objects = objects
         self.mainCamera = camera
+        self.screen = screen
         self.colliders = [o for o in self.objects if o.collider != None]
 
     def onLoad(self):
@@ -78,7 +79,7 @@ class Scene:
     def draw(self):
         for o in self.objects:
             p = self.mainCamera.worldToScreen(o.position)
-            o.draw(p)
+            o.draw(p,self.screen)
 
     def collision(self):
         temp = self.colliders
