@@ -7,13 +7,17 @@ from gamelib.gameobject import *
 from editor.parselevel import Parser
 from editor.screen import Screen
 
-def load(path,screen):
+def load(path):
     f = open(path)
     objList = []
     for l in f.readlines():
-        objList.append(Parser.parse(l,screen))
+        objList.append(Parser.parse(l))
 
+    f.close()
     return objList
+
+def save(objList,path):
+    pass
 
 def main():
     pygame.init()
@@ -21,9 +25,10 @@ def main():
 
     objList = []
     if len(sys.argv) == 2:
-        objList = load(sys.argv[1],screen)
+        objList = load(sys.argv[1])
 
-    scene = Scene([Screen(screen,objList)],Camera())
+    c = Camera(screen)
+    scene = Scene([Screen(objList)],c)
 
     Game.start([scene],screen)
 

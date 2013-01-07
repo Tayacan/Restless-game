@@ -26,8 +26,9 @@ class GameObject:
         pass
 
 class Camera(GameObject):
-    def __init__(self):
+    def __init__(self,screen):
         GameObject.__init__(self)
+        self.screen = screen
 
     def screenToWorld(self,v):
         return v + self.position

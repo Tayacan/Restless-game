@@ -18,8 +18,8 @@ import sys
 from ball import *
 
 class PlatformCamera(Camera):
-    def __init__(self,player):
-        Camera.__init__(self)
+    def __init__(self,player,screen):
+        Camera.__init__(self,screen)
         self.player = player
 
     def update(self):
@@ -46,13 +46,13 @@ def main():
 
     clock = pygame.time.Clock()
 
-    c =  PlatformCamera(player)
+    c =  PlatformCamera(player,screen)
 
     # Set up the scenes
-    winScene = Scene([WinScene()],c,screen,name="WinScene")
-    startScreen = Scene([StartScreen()],c,screen,name="StartScene")
-    gameOverScene = Scene([GameOver()],c,screen,name="GameOver")
-    mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,screen,name="Main")
+    winScene = Scene([WinScene()],c,name="WinScene")
+    startScreen = Scene([StartScreen()],c,name="StartScene")
+    gameOverScene = Scene([GameOver()],c,name="GameOver")
+    mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
 
     # Start the game
     Game.start([startScreen,mainScene,gameOverScene,winScene],screen)
