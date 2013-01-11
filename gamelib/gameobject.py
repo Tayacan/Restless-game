@@ -16,6 +16,8 @@ class GameObject:
 
     def translate(self,v):
         self.position += v
+        self.rect.left += v.x
+        self.rect.top += v.y
 
     def rotate(self,r):
         self.rotation += r

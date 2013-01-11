@@ -4,6 +4,7 @@ from gamelib.game import Scene
 from gamelib.input import Input
 from gamelib.gui import GUI
 from ball import Ball
+from obstacles import *
 
 class Screen(GameObject):
     def __init__(self,objects=[]):
@@ -22,10 +23,15 @@ class Screen(GameObject):
 
         self.selected = None
 
-        self.types = {"Box":None
+        self.types = {"Box":self.makeBox
                      ,"Spikes":None
                      ,"HigherJump":None
                      ,"NoJump":None}
+
+    def makeBox(self):
+        b = Box((0,0),(100,100))
+        self.objects.append(b)
+        self.scene.objects.append(b)
 
     def draw(self,pos,screen):
         self.sceneView.fill((0,0,0))
@@ -63,8 +69,22 @@ class Screen(GameObject):
     def update(self):
         if Input.down("MB1"):
             self.mpos = Vector2(Input.mouse_pos[0],Input.mouse_pos[1])
+            sel = False
+            for o in self.objects:
+                p = self.camera.screenToWorld(Vector2(*Input.mouse_pos))
+                if o.rect.collidepoint(p.x,p.y):
+                    self.selected = o
+                    sel = True
+                    break
+            if not sel:
+                self.selected = None
+
         if Input.motion("MB1"):
             newPos = Vector2(Input.mouse_pos[0],Input.mouse_pos[1])
             move = self.mpos - newPos
             self.mpos = newPos
-            self.camera.translate(move)
+            if self.selected is None:
+                self.camera.translate(move)
+            else:
+                self.selected.translate(-move)
+
