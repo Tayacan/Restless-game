@@ -1,4 +1,4 @@
-from obstacles import Box
+from obstacles import *
 from powerup import *
 from gamelib.vector2 import Vector2
 
@@ -20,4 +20,9 @@ class Parser:
             x = int(tokens[1])
             y = int(tokens[2])
             return HigherJump(Vector2(x,y))
-
+        elif tokens[0].lower() == "spikes":
+            x = int(tokens[1])
+            y = int(tokens[2])
+            n = int(tokens[3])
+            flip = bool(int(tokens[4]))
+            return Spikes(Vector2(x,y),n,flip)

@@ -42,7 +42,7 @@ def main():
     njump = NoJump(Vector2(100,500))
     hjump = HigherJump(Vector2(610,500))
     roof = Box((475,410),(200,50))
-    spikes = Spikes((475,410),15,True)
+    spikes = Spikes(Vector2(475,410),15,True)
     win = WinFlag(Vector2(475,335))
 
     clock = pygame.time.Clock()

@@ -14,10 +14,12 @@ class Box(GameObject):
         self.width = size[0]
         self.height = size[1]
 
-        self.collider = BoxCollider(pygame.Rect(self.position.x - self.width/2
-                                               ,self.position.y - self.height
-                                               ,self.width
-                                               ,self.height))
+        self.rect = pygame.Rect(self.position.x - self.width/2
+                               ,self.position.y - self.height
+                               ,self.width
+                               ,self.height)
+
+        self.collider = BoxCollider(self.rect)
 
 
     def draw(self,pos,screen):
@@ -32,7 +34,7 @@ class Spikes(GameObject):
     def __init__(self,pos,number,flip=False):
         GameObject.__init__(self)
         self.name = "Spikes"
-        self.position.x,self.position.y = pos
+        self.position = pos
         self.number = number
 
         self.flip = flip
@@ -44,11 +46,12 @@ class Spikes(GameObject):
         # so they'll be drawn in the right place.
         self.offset = self.spikeHeight * (not flip)
 
-        self.collider = BoxCollider(pygame.Rect(self.position.x-self.width/2
-                                               ,self.position.y-self.offset
-                                               ,self.width
-                                               ,self.spikeHeight)
-                                   )
+        self.rect = pygame.Rect(self.position.x-self.width/2
+                               ,self.position.y-self.offset
+                               ,self.width
+                               ,self.spikeHeight)
+
+        self.collider = BoxCollider(self.rect)
 
     def drawSpike(self,pos,screen):
         left = pos[0]

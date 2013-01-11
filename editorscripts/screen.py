@@ -2,6 +2,7 @@ import pygame
 from gamelib.gameobject import *
 from gamelib.game import Scene
 from gamelib.input import Input
+from gamelib.gui import GUI
 from ball import Ball
 
 class Screen(GameObject):
@@ -19,9 +20,19 @@ class Screen(GameObject):
 
         self.scene = Scene(self.objects + [Ball()],self.camera)
 
+        self.selected = None
+
+        self.types = {"Box":None
+                     ,"Spikes":None
+                     ,"HigherJump":None
+                     ,"NoJump":None}
+
     def draw(self,pos,screen):
         self.sceneView.fill((0,0,0))
         self.scene.draw()
+        if self.selected is not None:
+            p = Vector2(self.selected.rect.left,self.selected.rect.top)
+            self.selected.fillRect(self.camera.worldToScreen(p),self.sceneView)
 
         screen.blit(self.sceneView
                    ,pygame.Rect(pos.x
@@ -34,6 +45,20 @@ class Screen(GameObject):
                                ,pos.y
                                ,100
                                ,screen.get_height()))
+
+    def onGUI(self):
+        offset = 0
+        for o in self.objects:
+            if(GUI.Button(o.name,pygame.Rect(700,offset,100,30))):
+                self.selected = o
+            offset += 30
+
+        offset += 30
+        for t,f in self.types.iteritems():
+            if GUI.Button(t,pygame.Rect(700,offset,100,30)):
+                if f is not None:
+                    f()
+            offset += 30
 
     def update(self):
         if Input.down("MB1"):

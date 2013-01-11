@@ -72,13 +72,17 @@ class Scene:
             o.update()
         self.mainCamera.update()
 
-        # Finish input handling
-        Input.update()
-
     def draw(self):
         for o in self.objects:
             p = self.mainCamera.worldToScreen(o.position)
             o.draw(p,self.mainCamera.screen)
+
+    def onGUI(self):
+        for o in self.objects:
+            o.onGUI()
+
+        # Finish input handling
+        Input.update()
 
     def collision(self):
         temp = self.colliders
@@ -95,3 +99,4 @@ class Scene:
         self.update()
         self.collision()
         self.draw()
+        self.onGUI()

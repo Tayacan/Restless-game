@@ -26,6 +26,7 @@ class PowerUp(GameObject):
 class HigherJump(PowerUp):
     def __init__(self,pos):
         PowerUp.__init__(self,pos,(100,100,255))
+        self.name = "HigherJump"
 
     def onCollision(self,col,obj):
         if isinstance(obj,Ball):
@@ -34,6 +35,7 @@ class HigherJump(PowerUp):
 class SuperJump(PowerUp):
     def __init__(self,pos):
         PowerUp.__init__(self,pos,(200,200,0))
+        self.name = "SuperJump"
 
     def onCollision(self,col,obj):
         if isinstance(obj,Ball):
