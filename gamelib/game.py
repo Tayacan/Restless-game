@@ -31,6 +31,7 @@ class Game:
 
     @staticmethod
     def runGame():
+        Game.currentScene.onLoad()
         while(True):
             Game.clock.tick(60)
 

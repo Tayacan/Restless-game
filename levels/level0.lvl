@@ -1,4 +1,5 @@
-higherjump 200 400
-box 100 500 300 100
-box 500 500 300 100
-spikes 500 400 5 0
+HigherJump 434 401
+Box 113 500 340 126
+Box 500 500 300 100
+Spikes 500 400 5 0
+Win 600 350 WinScene

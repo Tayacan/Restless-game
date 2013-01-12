@@ -97,6 +97,10 @@ class Screen(GameObject):
                                ,screen.get_height()))
 
     def onGUI(self):
+        GUI.Label(self.mode
+                 ,pygame.Rect(20,20,100,30)
+                 ,(255,255,255)
+                 ,16)
         offset = 0
         for o in self.objects:
             if(GUI.Button(o.name,pygame.Rect(700,offset,100,30))):

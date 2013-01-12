@@ -7,6 +7,7 @@ from gamelib.collider import *
 from gamelib.input import Input
 from gamelib.game import Game
 from obstacles import *
+from gameover import GameOver
 
 def sign(n):
     if n < 0:
@@ -50,6 +51,8 @@ class Ball(GameObject):
         self.position = Vector2(0,300)
         self.speed = Vector2(0,1)
         self.jumpspeed = self.startJumpspeed
+        if Game.currentScene:
+            GameOver.currentScene = Game.currentScene.name
 
     def draw(self,pos,screen):
         """Draw the player"""
