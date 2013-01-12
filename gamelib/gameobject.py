@@ -22,6 +22,9 @@ class GameObject:
     def rotate(self,r):
         self.rotation += r
 
+    def scale(self,v):
+        pass
+
     def onLoad(self):
         pass
 

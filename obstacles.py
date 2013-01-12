@@ -21,6 +21,15 @@ class Box(GameObject):
 
         self.collider = BoxCollider(self.rect)
 
+    def scale(self,v):
+        self.width *= v.x
+        self.height *= v.y
+        self.rect = pygame.Rect(self.position.x - self.width/2
+                               ,self.position.y - self.height
+                               ,self.width
+                               ,self.height)
+        self.collider = BoxCollider(self.rect)
+
 
     def draw(self,pos,screen):
         pygame.draw.rect(screen,(255,255,255)
@@ -51,6 +60,17 @@ class Spikes(GameObject):
                                ,self.width
                                ,self.spikeHeight)
 
+        self.collider = BoxCollider(self.rect)
+
+    def scale(self,v):
+        width = self.width * v.x
+        n = width / self.spikeWidth
+        self.number = int(n)
+        self.width = width
+        self.rect = pygame.Rect(self.position.x-self.width/2
+                               ,self.position.y-self.offset
+                               ,self.width
+                               ,self.spikeHeight)
         self.collider = BoxCollider(self.rect)
 
     def drawSpike(self,pos,screen):

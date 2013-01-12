@@ -21,20 +21,53 @@ class Screen(GameObject):
         self.camera.position.x = -100
 
         self.mpos = Vector2(0,0)
-
         self.scene = Scene(self.objects + [Ball()],self.camera)
-
         self.selected = None
 
+        self.modes = {"Select":None
+                     ,"Move":self.move
+                     ,"Scale":self.scale
+                     ,"Rotate":None}
+        self.mode = "Select"
         self.types = {"Box":self.makeBox
-                     ,"Spikes":None
-                     ,"HigherJump":None
-                     ,"NoJump":None}
+                     ,"Spikes":self.makeSpikes
+                     ,"HigherJump":self.makeHigherJump
+                     ,"NoJump":self.makeNoJump}
+
+    def move(self,v):
+        self.selected.translate(v)
+
+    def scale(self,v):
+        scaleX = float(v.x) / self.selected.rect.width + 1
+        scaleY = float(-v.y) / self.selected.rect.height + 1
+        self.selected.scale(Vector2(scaleX,scaleY))
+
+    def add(self,obj):
+        self.objects.append(obj)
+        self.scene.objects.append(obj)
+
+    def makeNoJump(self):
+        p = self.camera.screenToWorld(Vector2(400,300))
+        j = NoJump(p)
+        self.add(j)
+
+    def makeHigherJump(self):
+        p = self.camera.screenToWorld(Vector2(400,300))
+        j = HigherJump(p)
+        self.add(j)
 
     def makeBox(self):
-        b = Box((0,0),(100,100))
-        self.objects.append(b)
-        self.scene.objects.append(b)
+        p = self.camera.screenToWorld(Vector2(100,100))
+        b = Box((p.x,p.y),(100,100))
+        self.add(j)
+
+    def makeSpikes(self):
+        f = raw_input("Flip? (y/n)")
+        flip = 0
+        if f.lower() == 'y':
+            flip = 1
+        s = Spikes(Vector2(0,0),5,flip)
+        self.add(j)
 
     def draw(self,pos,screen):
         self.sceneView.fill((0,0,0))
@@ -69,25 +102,43 @@ class Screen(GameObject):
                     f()
             offset += 30
 
+        if self.save is not None and GUI.Button("Save",pygame.Rect(700,570,100,30)):
+            self.save(self.objects)
+
     def update(self):
+        # Change mode
+        if Input.down(K_q):
+            self.mode = "Select"
+        elif Input.down(K_w):
+            self.mode = "Move"
+        elif Input.down(K_e):
+            self.mode = "Scale"
+        elif Input.down(K_r):
+            self.mode = "Rotate"
+
+        # On click: Selection of objects and updating mouse position.
         if Input.down("MB1"):
             self.mpos = Vector2(Input.mouse_pos[0],Input.mouse_pos[1])
-            sel = False
-            for o in self.objects:
-                p = self.camera.screenToWorld(Vector2(*Input.mouse_pos))
-                if o.rect.collidepoint(p.x,p.y):
-                    self.selected = o
-                    sel = True
-                    break
-            if not sel:
-                self.selected = None
+            if not Input.isset(K_LALT):
+                sel = False
+                for o in self.objects:
+                    p = self.camera.screenToWorld(Vector2(*Input.mouse_pos))
+                    if o.rect.collidepoint(p.x,p.y):
+                        self.selected = o
+                        sel = True
+                        break
+                if not sel:
+                    self.selected = None
 
+        # On drag: Moving screen or object
         if Input.motion("MB1"):
             newPos = Vector2(Input.mouse_pos[0],Input.mouse_pos[1])
             move = self.mpos - newPos
             self.mpos = newPos
-            if self.selected is None:
+            if Input.isset(K_LALT):
                 self.camera.translate(move)
-            else:
-                self.selected.translate(-move)
+            elif self.selected is not None:
+                if self.modes[self.mode] is not None:
+                    self.modes[self.mode](-move)
+#                self.selected.translate(-move)
 
