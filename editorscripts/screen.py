@@ -1,15 +1,18 @@
 import pygame
+from pygame.locals import *
 from gamelib.gameobject import *
 from gamelib.game import Scene
 from gamelib.input import Input
 from gamelib.gui import GUI
 from ball import Ball
 from obstacles import *
+from powerup import *
 
 class Screen(GameObject):
-    def __init__(self,objects=[]):
+    def __init__(self,objects=[],save=None):
         GameObject.__init__(self)
         self.objects = objects
+        self.save = save
 
         self.sceneView = pygame.Surface((700,600))
         self.controls = pygame.Surface((100,600))

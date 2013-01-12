@@ -50,7 +50,7 @@ def main():
     c =  PlatformCamera(player,screen)
 
     # Set up the scenes
-    level0Objs = editor.load("levels/level0.lvl")
+    level0Objs = editor.load("levels/test.lvl")
     level0 = Scene(level0Objs + [player],c,name="Level0")
     winScene = Scene([WinScene()],c,name="WinScene")
     startScreen = Scene([StartScreen()],c,name="StartScene")
