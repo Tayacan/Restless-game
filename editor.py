@@ -8,6 +8,7 @@ from editorscripts.parselevel import Parser
 from editorscripts.screen import Screen
 from obstacles import *
 from powerup import *
+from win import WinFlag
 
 def load(path):
     f = open(path,"a+")
@@ -39,6 +40,8 @@ def main():
                 f.write("NoJump %d %d\n" % (o.position.x,o.position.y))
             elif isinstance(o,HigherJump):
                 f.write("HigherJump %d %d\n" % (o.position.x,o.position.y))
+            elif isinstance(o,WinFlag):
+                f.write("Win %d %d %s\n" % (o.position.x,o.position.y,o.nextlevel))
 
 
         f.close()

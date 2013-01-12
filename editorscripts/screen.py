@@ -7,6 +7,7 @@ from gamelib.gui import GUI
 from ball import Ball
 from obstacles import *
 from powerup import *
+from win import WinFlag
 
 class Screen(GameObject):
     def __init__(self,objects=[],save=None):
@@ -32,7 +33,8 @@ class Screen(GameObject):
         self.types = {"Box":self.makeBox
                      ,"Spikes":self.makeSpikes
                      ,"HigherJump":self.makeHigherJump
-                     ,"NoJump":self.makeNoJump}
+                     ,"NoJump":self.makeNoJump
+                     ,"Win flag":self.makeWinFlag}
 
     def move(self,v):
         self.selected.translate(v)
@@ -45,6 +47,12 @@ class Screen(GameObject):
     def add(self,obj):
         self.objects.append(obj)
         self.scene.objects.append(obj)
+
+    def makeWinFlag(self):
+        p = self.camera.screenToWorld(Vector2(400,300))
+        n = raw_input("Name of next level: ")
+        w = WinFlag(p,n)
+        self.add(w)
 
     def makeNoJump(self):
         p = self.camera.screenToWorld(Vector2(400,300))

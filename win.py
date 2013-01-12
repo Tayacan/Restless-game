@@ -34,9 +34,10 @@ class WinScene(GameObject):
             Game.loadSceneByName("StartScene")
 
 class WinFlag(GameObject):
-    def __init__(self,position):
+    def __init__(self,position,nextLevel):
         GameObject.__init__(self)
         self.name = "WinStar"
+        self.nextlevel = nextLevel
         self.position = position
         self.image = pygame.image.load(os.path.join("images","star.jpg"))
         self.rect = pygame.Rect(self.position.x-self.image.get_width()/2
@@ -47,8 +48,11 @@ class WinFlag(GameObject):
         self.collider = BoxCollider(self.rect)
 
     def draw(self,pos,screen):
-        screen.blit(self.image,pygame.Rect(pos.x,pos.y,self.rect.width,self.rect.height))
+        screen.blit(self.image,pygame.Rect(pos.x-self.image.get_width()/2
+                                          ,pos.y-self.image.get_height()/2
+                                          ,self.rect.width
+                                          ,self.rect.height))
 
     def onCollision(self,col,obj):
         if obj.name == "Player":
-            Game.loadSceneByName("WinScene")
+            Game.loadSceneByName(self.nextlevel)

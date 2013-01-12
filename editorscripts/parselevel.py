@@ -1,5 +1,6 @@
 from obstacles import *
 from powerup import *
+from win import WinFlag
 from gamelib.vector2 import Vector2
 
 class Parser:
@@ -26,3 +27,9 @@ class Parser:
             n = int(tokens[3])
             flip = bool(int(tokens[4]))
             return Spikes(Vector2(x,y),n,flip)
+        elif tokens[0].lower() == "win":
+            x = int(tokens[1])
+            y = int(tokens[2])
+            nextlvl = tokens[3].strip()
+            return WinFlag(Vector2(x,y),nextlvl)
+

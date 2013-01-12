@@ -27,7 +27,7 @@ class Game:
                 Game.currentScene = scene
                 Game.currentScene.onLoad()
                 return
-        print("No such scene")
+        print("No such scene: " + name)
 
     @staticmethod
     def runGame():

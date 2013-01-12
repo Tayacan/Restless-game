@@ -43,14 +43,16 @@ def main():
     hjump = HigherJump(Vector2(610,500))
     roof = Box((475,410),(200,50))
     spikes = Spikes(Vector2(475,410),15,True)
-    win = WinFlag(Vector2(475,335))
+    win = WinFlag(Vector2(475,335),"WinScene")
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player,screen)
 
     # Set up the scenes
-    level0Objs = editor.load("levels/test.lvl")
+    testObjs = editor.load("levels/test.lvl")
+    test = Scene(testObjs + [player],c,name="Test")
+    level0Objs = editor.load("levels/level0.lvl")
     level0 = Scene(level0Objs + [player],c,name="Level0")
     winScene = Scene([WinScene()],c,name="WinScene")
     startScreen = Scene([StartScreen()],c,name="StartScene")
@@ -58,7 +60,7 @@ def main():
     mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
 
     # Start the game
-    Game.start([startScreen,mainScene,gameOverScene,winScene,level0],screen)
+    Game.start([startScreen,mainScene,gameOverScene,test,winScene,level0],screen)
 
 if __name__ == "__main__":
     main()
