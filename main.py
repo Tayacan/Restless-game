@@ -36,6 +36,7 @@ def main():
     player = Ball(screen)
     movespeed = 3
 
+    # Make some things
     testBox = Box(screen,(700,500),(100,100))
     ground = Box(screen,(400,610),(1000,110))
     njump = NoJump(screen,Vector2(100,500))

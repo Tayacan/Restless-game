@@ -87,8 +87,8 @@ class Ball(GameObject):
     def onCollision(self,col,obj):
         nobounce = ["NoJump","WinStar"]
     
-        if obj.name not in nobounce:
-            channel = self.bounce.play()
+        #if obj.name not in nobounce:
+         #   channel = self.bounce.play()
          
         # Bounce off the object
         self.translate(col.minTranslation)
