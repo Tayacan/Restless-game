@@ -67,7 +67,7 @@ class Screen(GameObject):
     def makeBox(self):
         p = self.camera.screenToWorld(Vector2(100,100))
         b = Box((p.x,p.y),(100,100))
-        self.add(j)
+        self.add(b)
 
     def makeSpikes(self):
         f = raw_input("Flip? (y/n)")
@@ -75,7 +75,7 @@ class Screen(GameObject):
         if f.lower() == 'y':
             flip = 1
         s = Spikes(Vector2(0,0),5,flip)
-        self.add(j)
+        self.add(s)
 
     def draw(self,pos,screen):
         self.sceneView.fill((0,0,0))
