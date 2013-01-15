@@ -50,6 +50,13 @@ class Ball(GameObject):
         # Starting position and speed
         self.position = Vector2(0,300)
         self.speed = Vector2(0,1)
+
+        # Fix speed
+        if Input.isset(K_LEFT):
+            self.speed.x -= self.movespeed
+        if Input.isset(K_RIGHT):
+            self.speed.x += self.movespeed
+
         self.jumpspeed = self.startJumpspeed
         if Game.currentScene:
             GameOver.currentScene = Game.currentScene.name
