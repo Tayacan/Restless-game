@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pygame
+import editor
 from pygame.locals import *
 from obstacles import *
 from gamelib.game import *
@@ -18,8 +19,8 @@ import sys
 from ball import *
 
 class PlatformCamera(Camera):
-    def __init__(self,player):
-        Camera.__init__(self)
+    def __init__(self,player,screen):
+        Camera.__init__(self,screen)
         self.player = player
 
     def update(self):
@@ -33,30 +34,34 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((800,600))
 
-    player = Ball(screen)
+    player = Ball()
     movespeed = 3
 
     # Make some things
-    testBox = Box(screen,(700,500),(100,100))
-    ground = Box(screen,(400,610),(1000,110))
-    njump = NoJump(screen,Vector2(100,500))
-    hjump = HigherJump(screen,Vector2(610,500))
-    roof = Box(screen,(475,410),(200,50))
-    spikes = Spikes(screen,(475,410),15,True)
-    win = WinFlag(screen,Vector2(475,335))
+    testBox = Box((700,500),(100,100))
+    ground = Box((400,610),(1000,110))
+    njump = NoJump(Vector2(100,500))
+    hjump = HigherJump(Vector2(610,500))
+    roof = Box((475,410),(200,50))
+    spikes = Spikes(Vector2(475,410),15,True)
+    win = WinFlag(Vector2(475,335),"WinScene")
 
     clock = pygame.time.Clock()
 
-    c =  PlatformCamera(player)
+    c =  PlatformCamera(player,screen)
 
     # Set up the scenes
-    winScene = Scene([WinScene(screen)],c,name="WinScene")
-    startScreen = Scene([StartScreen(screen)],c,name="StartScene")
-    gameOverScene = Scene([GameOver(screen)],c,name="GameOver")
+    testObjs = editor.load("levels/test.lvl")
+    test = Scene(testObjs + [player],c,name="Test")
+    level0Objs = editor.load("levels/level0.lvl")
+    level0 = Scene(level0Objs + [player],c,name="Level0")
+    winScene = Scene([WinScene()],c,name="WinScene")
+    startScreen = Scene([StartScreen()],c,name="StartScene")
+    gameOverScene = Scene([GameOver()],c,name="GameOver")
     mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
-    
+
     # Start the game
-    Game.start([startScreen,mainScene,gameOverScene,winScene],screen)
+    Game.start([startScreen,mainScene,gameOverScene,test,winScene,level0],screen)
 
 if __name__ == "__main__":
     main()

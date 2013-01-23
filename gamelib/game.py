@@ -27,10 +27,11 @@ class Game:
                 Game.currentScene = scene
                 Game.currentScene.onLoad()
                 return
-        print("No such scene")
+        print("No such scene: " + name)
 
     @staticmethod
     def runGame():
+        Game.currentScene.onLoad()
         while(True):
             Game.clock.tick(60)
 
@@ -44,8 +45,8 @@ class Scene:
     def __init__(self,objects,camera,name="Scene"):
         # Give each scene a unique name
         if name in Scene.names:
-            name += str(num)
-            num += 1
+            name += str(Scene.num)
+            Scene.num += 1
         self.name = name
         Scene.names.append(name)
 
@@ -72,13 +73,17 @@ class Scene:
             o.update()
         self.mainCamera.update()
 
-        # Finish input handling
-        Input.update()
-
     def draw(self):
         for o in self.objects:
             p = self.mainCamera.worldToScreen(o.position)
-            o.draw(p)
+            o.draw(p,self.mainCamera.screen)
+
+    def onGUI(self):
+        for o in self.objects:
+            o.onGUI()
+
+        # Finish input handling
+        Input.update()
 
     def collision(self):
         temp = self.colliders
@@ -95,3 +100,4 @@ class Scene:
         self.update()
         self.collision()
         self.draw()
+        self.onGUI()

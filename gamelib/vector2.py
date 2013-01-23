@@ -21,6 +21,9 @@ class Vector2:
     def __div__(self,x):
         return Vector2(self.x/x,self.y/x)
 
+    def __neg__(self):
+        return self*-1
+
     # Basic vector operations
     def sqrdMagnitude(self):
         return self.x * self.x + self.y * self.y
