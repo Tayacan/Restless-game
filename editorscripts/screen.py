@@ -102,12 +102,7 @@ class Screen(GameObject):
                  ,(255,255,255)
                  ,16)
         offset = 0
-        for o in self.objects:
-            if(GUI.Button(o.name,pygame.Rect(700,offset,100,30))):
-                self.selected = o
-            offset += 30
 
-        offset += 30
         for t,f in self.types.iteritems():
             if GUI.Button(t,pygame.Rect(700,offset,100,30)):
                 if f is not None:
@@ -127,6 +122,13 @@ class Screen(GameObject):
             self.mode = "Scale"
         elif Input.down(K_r):
             self.mode = "Rotate"
+        elif Input.down(K_d):
+            try:
+                self.objects.remove(self.selected)
+                self.scene.objects.remove(self.selected)
+                self.selected = None
+            except:
+                pass
 
         # On click: Selection of objects and updating mouse position.
         if Input.down("MB1"):

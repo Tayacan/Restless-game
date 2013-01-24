@@ -35,33 +35,32 @@ def main():
     screen = pygame.display.set_mode((800,600))
 
     player = Ball()
-    movespeed = 3
-
-    # Make some things
-    testBox = Box((700,500),(100,100))
-    ground = Box((400,610),(1000,110))
-    njump = NoJump(Vector2(100,500))
-    hjump = HigherJump(Vector2(610,500))
-    roof = Box((475,410),(200,50))
-    spikes = Spikes(Vector2(475,410),15,True)
-    win = WinFlag(Vector2(475,335),"WinScene")
 
     clock = pygame.time.Clock()
 
     c =  PlatformCamera(player,screen)
 
     # Set up the scenes
-    testObjs = editor.load("levels/test.lvl")
-    test = Scene(testObjs + [player],c,name="Test")
-    level0Objs = editor.load("levels/level0.lvl")
-    level0 = Scene(level0Objs + [player],c,name="Level0")
     winScene = Scene([WinScene()],c,name="WinScene")
-    startScreen = Scene([StartScreen()],c,name="StartScene")
+    startScreen = Scene([StartScreen("tut1")],c,name="StartScene")
     gameOverScene = Scene([GameOver()],c,name="GameOver")
-    mainScene = Scene([njump,hjump,spikes,win,testBox,player,ground,roof],c,name="Main")
+
+    tut1 = Scene(editor.load("levels/tutorial/01.lvl")+[player],c,name="tut1")
+    tut2 = Scene(editor.load("levels/tutorial/02.lvl")+[player],c,name="tut2")
+    tut3 = Scene(editor.load("levels/tutorial/03.lvl")+[player],c,name="tut3")
+    tut4 = Scene(editor.load("levels/tutorial/04.lvl")+[player],c,name="tut4")
+
+    lvl1 = Scene(editor.load("levels/lvl1.lvl")+[player],c,name="lvl1")
 
     # Start the game
-    Game.start([startScreen,mainScene,gameOverScene,test,winScene,level0],screen)
+    Game.start([startScreen
+               ,gameOverScene
+               ,winScene
+               ,tut1
+               ,tut2
+               ,tut3
+               ,tut4
+               ,lvl1],screen)
 
 if __name__ == "__main__":
     main()

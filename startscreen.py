@@ -5,8 +5,9 @@ from gamelib.game import Game
 from gamelib.input import Input
 
 class StartScreen(GameObject):
-    def __init__(self):
+    def __init__(self,first):
         GameObject.__init__(self)
+        self.firstScene = first
 
     def draw(self,pos,screen):
         screen.fill((0,0,0))
@@ -29,4 +30,4 @@ class StartScreen(GameObject):
 
     def update(self):
         if Input.down(K_SPACE):
-            Game.loadSceneByName("Test")
+            Game.loadSceneByName(self.firstScene)
