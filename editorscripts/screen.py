@@ -130,6 +130,15 @@ class Screen(GameObject):
             except:
                 pass
 
+        elif Input.isset(K_LEFT):
+            self.camera.translate(Vector2(-5,0))
+        elif Input.isset(K_RIGHT):
+            self.camera.translate(Vector2(5,0))
+        elif Input.isset(K_UP):
+            self.camera.translate(Vector2(0,-5))
+        elif Input.isset(K_DOWN):
+            self.camera.translate(Vector2(0,5))
+
         # On click: Selection of objects and updating mouse position.
         if Input.down("MB1"):
             self.mpos = Vector2(Input.mouse_pos[0],Input.mouse_pos[1])
@@ -154,5 +163,4 @@ class Screen(GameObject):
             elif self.selected is not None:
                 if self.modes[self.mode] is not None:
                     self.modes[self.mode](-move)
-#                self.selected.translate(-move)
 

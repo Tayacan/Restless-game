@@ -52,8 +52,12 @@ def main():
 
     lvl1 = Scene(editor.load("levels/lvl1.lvl")+[player],c,name="lvl1")
 
+    test = Scene(editor.load("levels/foo.lvl")+[player],c,name="foo")
+
+
     # Start the game
-    Game.start([startScreen
+    Game.start([test
+               ,startScreen
                ,gameOverScene
                ,winScene
                ,tut1
